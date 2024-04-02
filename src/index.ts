@@ -15,8 +15,8 @@ app.get('/', (req, res) => {
 app.post('/button-clicked', (req, res) => {
     console.log('Button was clicked!');
     const ce = new CloudEvent({
-        type: 'com.example.button.clicked',
-        source: '/button-clicked',
+        type: 'com.bnova.techhub.button.clicked',
+        source: 'cloud-events-example-frontend',
         data: { clicked: true },
     });
     emit(ce);
