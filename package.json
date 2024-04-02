@@ -1,0 +1,22 @@
+{
+  "name": "cloud-events-example-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --outDir public && cp src/index.html public",
+    "start": "node public/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cloudevents": "^8.0.0",
+    "express": "^4.19.2",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21"
+  }
+}
