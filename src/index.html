@@ -54,7 +54,9 @@
 
 <script>
 	async function fetchActivity() {
-		const response = await fetch('/button-clicked', {
+		const activityDetails = document.getElementById('activityDetails');
+		activityDetails.innerHTML = '<div class="activityDetail">🔄 Fetching Activity...</div>';
+		const response = await fetch('/get-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -62,6 +64,19 @@
 		});
 		const data = await response.json();
 		console.log(data);
+		displayActivity(activityDetails,data);
+	}
+
+	function displayActivity(activityDetails, activity) {
+		activityDetails.innerHTML = `
+                <div class="activityDetail">🎉 <strong>Activity:</strong> ${activity.activity}</div>
+                <div class="activityDetail">👥 <strong>Type:</strong> ${activity.type}</div>
+                <div class="activityDetail">👫 <strong>Participants:</strong> ${activity.participants}</div>
+                <div class="activityDetail">💰 <strong>Price:</strong> ${activity.price}</div>
+                <div class="activityDetail">🔗 <strong>Link:</strong> ${activity.link ? `<a href="${activity.link}" style="color: #adf;">Visit</a>` : 'N/A'}</div>
+                <div class="activityDetail">🔑 <strong>Key:</strong> ${activity.key}</div>
+                <div class="activityDetail">♿ <strong>Accessibility:</strong> ${activity.accessibility}</div>
+            `;
 	}
 </script>
 </body>

@@ -6,6 +6,19 @@ const emit = emitterFor(httpTransport("http://localhost:8080"));
 const app = express();
 const port = 3000;
 
+interface ButtonEvent {
+    clicked: boolean;
+}
+interface Activity {
+    activity: string;
+    type: string;
+    participants: number;
+    price: number;
+    link: string;
+    key: string;
+    accessibility: number;
+}
+
 app.use(express.json());
 app.use(express.static('public'));
 app.get('/', (req, res) => {
@@ -24,6 +37,24 @@ app.post('/button-clicked', (req, res) => {
     res.json({ message: 'Button click handled by server!' });
 });
 
+app.post('/get-activity', (req, res) => {
+    console.log('Get Activity Button was clicked!');
+    const ce = new CloudEvent<ButtonEvent>({
+        type: 'com.bnova.techhub.get.activity',
+        source: 'cloud-events-example-frontend',
+        data: { clicked: true },
+    });
+
+    let ceResult : CloudEvent<Activity>;
+    emit(ce).then((result) => {
+        console.log('Result:', result);
+        let ceResultStr = (result as { body: string }).body;
+        let ceResult = JSON.parse(ceResultStr);
+        res.json(ceResult.data);
+    }).catch(console.error);
+});
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
