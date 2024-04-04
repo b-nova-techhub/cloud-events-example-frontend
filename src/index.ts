@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 app.post('/button-clicked', (req, res) => {
     console.log('Button was clicked!');
-    const ce = new CloudEvent({
+    const ce = new CloudEvent<ButtonEvent>({
         type: 'com.bnova.techhub.button.clicked',
         source: 'cloud-events-example-frontend',
         data: { clicked: true },
@@ -45,11 +45,10 @@ app.post('/get-activity', (req, res) => {
         data: { clicked: true },
     });
 
-    let ceResult : CloudEvent<Activity>;
     emit(ce).then((result) => {
         console.log('Result:', result);
         let ceResultStr = (result as { body: string }).body;
-        let ceResult = JSON.parse(ceResultStr);
+        let ceResult = JSON.parse(ceResultStr) as CloudEvent<Activity>;
         res.json(ceResult.data);
     }).catch(console.error);
 });
