@@ -9,6 +9,7 @@ const port = 3000;
 interface ButtonEvent {
     clicked: boolean;
 }
+
 interface Activity {
     activity: string;
     type: string;
@@ -30,11 +31,11 @@ app.post('/button-clicked', (req, res) => {
     const ce = new CloudEvent<ButtonEvent>({
         type: 'com.bnova.techhub.button.clicked',
         source: 'cloud-events-example-frontend',
-        data: { clicked: true },
+        data: {clicked: true},
     });
     emit(ce);
 
-    res.json({ message: 'Button click handled by server!' });
+    res.json({message: 'Button click handled by server!'});
 });
 
 app.post('/get-activity', (req, res) => {
@@ -42,7 +43,7 @@ app.post('/get-activity', (req, res) => {
     const ce = new CloudEvent<ButtonEvent>({
         type: 'com.bnova.techhub.get.activity',
         source: 'cloud-events-example-frontend',
-        data: { clicked: true },
+        data: {clicked: true},
     });
 
     emit(ce).then((result) => {
