@@ -52,11 +52,25 @@
 </head>
 <body>
 <div id="activityContainer">
+	<button onclick="sendClick()">Send Click Event</button>
 	<button onclick="fetchActivity()">🚀 Generate Activity 🚀</button>
 	<div id="activityDetails"></div>
 </div>
 
 <script>
+	async function sendClick() {
+		const activityDetails = document.getElementById('activityDetails');
+		activityDetails.innerHTML = '<div class="activityDetail">🔄 Sending Click Event...</div>';
+		const response = await fetch('/button-clicked', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		const data = await response.json();
+		console.log(data);
+	}
+
 	async function fetchActivity() {
 		const activityDetails = document.getElementById('activityDetails');
 		activityDetails.innerHTML = '<div class="activityDetail">🔄 Fetching Activity...</div>';

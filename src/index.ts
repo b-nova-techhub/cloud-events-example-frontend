@@ -2,9 +2,10 @@ import express from 'express';
 import path from 'path';
 import {CloudEvent, emitterFor, httpTransport} from "cloudevents";
 
-const emit = emitterFor(httpTransport("http://localhost:8080"));
 const app = express();
 const port = 3000;
+
+const emit = emitterFor(httpTransport("http://localhost:8080"));
 
 interface ButtonEvent {
     clicked: boolean;
